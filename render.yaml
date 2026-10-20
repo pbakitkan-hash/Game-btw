@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: brainrotfarm
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+
+  - type: cron
+    name: brainrotfarm-cron
+    runtime: python
+    schedule: "*/10 * * * *"
+    buildCommand: pip install requests
+    startCommand: python -c "import requests; requests.get('YOUR_RENDER_URL/health')"
